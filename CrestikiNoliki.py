@@ -43,10 +43,7 @@ def WhoGoesPerv():
         return 'человек'
 
 
-#print(DisplayBoard([' ',' ',' ',' ',' ',' ',' ',' ',' ',' ']))
-#print(Proverka())
-
-def board2(x):
+def board2(board):
     x = []
     for i in board:
         x.append(i)
@@ -55,7 +52,8 @@ def board2(x):
 def iSF(board, move):
     return board[move] == ' '
 
-def ProvVybora():
+def ProvVybora(board):
+    move = ' '
     while move not in '1 2 3 4 5 6 7 8 9'.split()or not iSF(board,int(move)):
         print('Ваш следующий ход? Введите номер ячейки. (1-9)')
         move = input()
@@ -72,19 +70,6 @@ def ii(board,movesList):
     else:
         return None
 
-board = [' ',' ',' ',' ',' ',' ',' ',' ',' ',' '] 
-board = [' ']*10
-mL = [1,3,7,9]
-
-hod = ii(board,mL)
-print(hod)
-
-DisplayBoard(board)
-
-hod = ii(board,mL)
-print(hod)
-
-DisplayBoard(board)
 
 def HodPC(board,computerLetter):
     if computerLetter == "X":
@@ -94,9 +79,9 @@ def HodPC(board,computerLetter):
 
     for i in range(1,10):
         BoardCopy = board2(board)
-        if iSF(boardCopy,i):
-            hod(boardCopy,computerLetter)
-            if Proverka2(boardCopy,computerLetter):
+        if iSF(BoardCopy,i):
+            hod(BoardCopy,computerLetter,i)
+            if Proverka2(BoardCopy,computerLetter):
                 return i
 
     for i in range(1,10):
@@ -106,11 +91,20 @@ def HodPC(board,computerLetter):
             if Proverka2(boardCopy,playerLetter):
                 return i
 
+    move = ii(board,[1,3,7,9])
+    if move != None:
+        return move
+
+    if iSF(board,5):
+        return 5
+
+    return ii(board,[2,4,6,8])
+
 def isdf(board):
     for i in range(1,10):
         if iSF(board,i):
             return False
-        return True
+    return True
 
 ################
 #ТЕЛО ПРОГРАММЫ#
@@ -129,38 +123,39 @@ while True:
     gameIsPlaying = True
 
     while gameIsPlaying:
-        if turn == 'человек':
+        if turn == 'человек': 
             DisplayBoard(theBoard)
             move = ProvVybora(theBoard)
             hod(theBoard,playerLetter,move)
 
 
-        if Proverka2(theBoard,playerLetter):
-            DisplayBoard(theBoard)
-            print('Поздравляем! Ты выиграл!')
-            gameIsPlaying = False
-        else:
-            if isdf(theBoard):
+            if Proverka2(theBoard,playerLetter):
                 DisplayBoard(theBoard)
-                print('Ничья!')
-                break
+                print('Поздравляем! Ты выиграл!')
+                gameIsPlaying = False
             else:
-                turn = 'Компьютер'
-    else:
-        move = HodPC (theBoard, computerLetter)
-        hod(theBoard,computerLetter,move)
+                if isdf(theBoard):
+                    DisplayBoard(theBoard)
+                    print('Ничья!')
+                    break
+                else:
+                    turn = 'Компьютер'
+        else:
+            move = HodPC(theBoard, computerLetter)
+            print(move)
+            hod(theBoard,computerLetter,move)
 
-        if Proverka2(theBoard,computerLetter):
-            DisplayBoard(theBoard)
-            print('ИИ оказался сильнее! Вы проиграли')
-            gameIsPlaying = False
-        else:
-            if isdf(theBoard):
+            if Proverka2(theBoard,computerLetter):
                 DisplayBoard(theBoard)
-                print('Ничья!')
-                break
+                print('ИИ оказался сильнее! Вы проиграли')
+                gameIsPlaying = False
             else:
-                turn = 'Человек'
+                if isdf(theBoard):
+                    DisplayBoard(theBoard)
+                    print('Ничья!')
+                    break
+                else:
+                    turn = 'человек'
     print('Сыграем еще раз? (да или нет)')
     if not input().lower().startswith('д'):
         break
