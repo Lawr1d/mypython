@@ -1,3 +1,4 @@
+from ast import While
 import random
 def DisplayBoard():
     kubiki = ['''
@@ -72,22 +73,14 @@ def OchkiKup():
     k.append(kubik2)
     return k
 
-def display(kubiki,kubik1,kubik2,OchG,OchK,gamer):
+def display(kubiki,kubik1,kubik2,summaG,summaK,gamer):
     print(gamer)
     print(kubiki[kubik1])
     print(kubiki[kubik2])
     print()
     print('Количества очков:')
-    print('Вы - '+str.OchG+' Компьютер - '+str.OchK+'')
-
-def Hod():
-    print('Нажмите (Б) чтобы бросить')
-    while True:
-        otvet = input().upper().startswith('Б')
-        if (otvet == 'Б') or (otvet == 'б'):
-            return True
-        else:
-            print('Я вас не понял нажмите (Б) чтобы бросить кубик')
+    print('Вы - '+str(summaG)+', Компьютер - '+str(summaK)+'.')
+    print()
 
 def playAgain():
     print('Вы хотите сыграть еще раз?')
@@ -113,12 +106,44 @@ def Hod2():
             print('Я вас не понял нажмите (П) чтобы передать ход компьютеру')
 
 
+
+
 #******************************************************************************************
 #  ТЕЛО ПРОГРАММЫ  
 #******************************************************************************************
 pravila()
+
 nachalo()
-OchkiKup()
-display(kubiki,kubik1,kubik2,OchG,OchK,gamer)
-Hod()
-Hod2()
+
+KtoBrosaet = 'Человек'
+kubiki = DisplayBoard()
+summaK = 0
+summaG = 0
+game = True
+gamer = True
+computer = True
+
+while game:
+    while gamer:
+        kubik1,kubik2 = OchkiKup()
+        summaG = summaG + kubik1 + kubik2
+        display(kubiki,kubik1,kubik2,summaG,summaK,KtoBrosaet)       
+        if summaG > 21:
+            print('Вы проиграли')
+            game = False
+            gamer = False
+        if game and not (input('(Б)росаем еще или (П)ередаем ход').upper() == 'Б'):
+            gamer = False
+
+while computer:
+    while gamer:
+        kubik1,kubik2 = OchkiKup()
+        summaK = summaK + kubik1 + kubik2
+        display(kubiki,kubik1,kubik2,summaG,summaK,KtoBrosaet)       
+        if summaK > 21:
+            print('Вы проиграли')
+            game = False
+            computer = False
+            elif 
+        if game and not (input('(Б)росаем еще или (П)ередаем ход').upper() == 'Б'):
+            computer = False
