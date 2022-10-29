@@ -144,6 +144,6 @@ while computer:
             print('Вы проиграли')
             game = False
             computer = False
-            elif 
-        if game and not (input('(Б)росаем еще или (П)ередаем ход').upper() == 'Б'):
-            computer = False
+        elif summaK > summaG:
+            if game and not (input('(Б)росаем еще или (П)ередаем ход').upper() == 'Б'):
+               computer = False
