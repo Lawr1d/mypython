@@ -1,5 +1,3 @@
-from ast import While
-from operator import truediv
 import random
 
 KOL_CIFR = 3
@@ -31,14 +29,11 @@ def podskazka(chislo_gamer,chislo_komp):
     return ' '.join(podskazka)
 
 def proverka_vvoda(num):
-    print(num)
     if num == '':
         return False
 
     for i in num:
-        print(i)
-        if num not in '0 1 2 3 4 5 6 7 8 9'.split():
-            print('Вышли с False')
+        if i not in '0 1 2 3 4 5 6 7 8 9'.split():
             return False
 
     return True
@@ -74,12 +69,21 @@ while True:
     secterNum = generator_Chisla()
     
     print('Итак, я загадал число. У вас есть %s попыток, чтобы отгадать его.' % (KOL_POP))
-    
     popytka = 1
     while popytka <= KOL_POP:
         chislo_gamer = ''
         while len(chislo_gamer) != KOL_CIFR or not proverka_vvoda(chislo_gamer):
-            print(len(chislo_gamer) != KOL_CIFR)
-            print(not )
+            print('Попытка № %s:' %(popytka))
+            chislo_gamer = input()
+
+        print(podskazka(chislo_gamer,secterNum))
+
+        popytka += 1
+
+        if chislo_gamer == secterNum:
+            break
+        if popytka > KOL_POP:
+            print('Попыток больше не осталось. Я загадал число %s.' % (secterNum))
+
     if not playAgain():
         break

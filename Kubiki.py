@@ -60,6 +60,7 @@ def pravila2():
     Компьютер кидает также 2 кубика, пытаясь набрать количество очков больше чем у вас.
     Как только количество очков превысит количество ваших очков он перестает бросать кубики и говорит, что он выиграл.
     Если вы или компьютер набирают очков больше 21, то вы проигрываете''')
+    return nachalo()
 
 def nachalo():
     a = input('''
@@ -113,17 +114,16 @@ def Hod2():
 #******************************************************************************************
 pravila()
 
-nachalo()
-
-KtoBrosaet = 'Человек'
-kubiki = DisplayBoard()
-summaK = 0
-summaG = 0
 game = True
-gamer = True
-computer = True
-
+    
 while game:
+    KtoBrosaet = 'Человек'
+    kubiki = DisplayBoard()
+    summaK = 0
+    summaG = 0
+    gamer = True
+    computer = True
+        
     while gamer:
         kubik1,kubik2 = OchkiKup()
         summaG = summaG + kubik1 + kubik2
@@ -134,16 +134,22 @@ while game:
             gamer = False
         if game and not (input('(Б)росаем еще или (П)ередаем ход').upper() == 'Б'):
             gamer = False
-
-while computer:
-    while gamer:
+    while computer:
         kubik1,kubik2 = OchkiKup()
         summaK = summaK + kubik1 + kubik2
         display(kubiki,kubik1,kubik2,summaG,summaK,KtoBrosaet)       
         if summaK > 21:
-            print('Вы проиграли')
+            print('Вы выиграли')
             game = False
             computer = False
         elif summaK > summaG:
-            if game and not (input('(Б)росаем еще или (П)ередаем ход').upper() == 'Б'):
-               computer = False
+            print('Вы проиграли')
+            game = False
+            computer = False
+        elif summaK == summaG:
+            print('Ничья')
+            game = False
+            computer = False
+        a = input('нажмите Enter что бы продолжить')
+
+    game = playAgain()
