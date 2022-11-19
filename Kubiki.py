@@ -121,6 +121,7 @@ while game:
     kubiki = DisplayBoard()
     summaK = 0
     summaG = 0
+    game = True
     gamer = True
     computer = True
         
@@ -132,6 +133,7 @@ while game:
             print('Вы проиграли')
             game = False
             gamer = False
+            computer = False
         if game and not (input('(Б)росаем еще или (П)ередаем ход').upper() == 'Б'):
             gamer = False
     while computer:
@@ -146,7 +148,7 @@ while game:
             print('Вы проиграли')
             game = False
             computer = False
-        elif summaK == summaG:
+        elif summaK >17 and summaK == summaG:
             print('Ничья')
             game = False
             computer = False
