@@ -1,4 +1,5 @@
 import random
+import math
 
 def getPlayPole():
     board = []
@@ -44,10 +45,33 @@ def getRandomChests(kolChests):
         if newChasts not in chasts:
             chasts.append(newChasts)
     return chasts
+
+
         
+def isOnBoard(x,y):
+    return x>=0 and x<=59 and y>=0 and y<=14
 
+def vopros():
+    while True:
+        otvet = input().lower()
+        if (otvet == 'да') or (otvet == 'д') or (otvet == 'yes') or (otvet == 'ye') or (otvet == 'y'):
+            # ответ да, запускаем игру по новой
+            return True
             
+        elif (otvet == 'нет') or (otvet == 'не') or (otvet == 'н') or (otvet == 'no') or (otvet == 'n'):
+            # игрок отказался от игры, завершаем
+            return False
 
+def makeMove(board,chasts,x,y):
+    minDisrance = 100
+#    for cx,cy in chasts:
+# ************************************************
+# ОСНОВНОЕ ТЕЛО ПРОГРАММЫ
+# ************************************************
 
-theBoard = getPlayPole()
-displayBoard(theBoard)
+while True:
+    a = int(input('Введите первую координату:     '))
+    b = int(input('Введите вторую координату:     '))
+    print(isOnBoard(a,b))
+    if vopros('Не хотите закончить проверку?'):
+        break
