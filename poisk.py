@@ -63,6 +63,8 @@ def vopros(textVoprosa):
         elif (otvet == 'нет') or (otvet == 'не') or (otvet == 'н') or (otvet == 'no') or (otvet == 'n'):
             # игрок отказался от игры, завершаем
             return False
+        else:
+            print('Я вас не понял напишите "да,нет,no или yes"')
 
 def makeMove(board,chasts,x,y):
     minDisrance = 100
@@ -85,6 +87,8 @@ def makeMove(board,chasts,x,y):
         else:
             board[x][y] = 'X'
             print('Гидролокатор ничего не обнаружил. Все сундуки с сокровищами вне пределов досягаемости')
+            return False
+
 def enterPlayerMove(predHoda):
     print('''Где следует опустить гидролокатор?
     (координаты: 0-59 0-14)
@@ -204,19 +208,27 @@ while True:
 
         if makeMove(theBoard,sunduki,x,y):
             # обновить все гидролокаторы
-            a = 'вместо этого будет цикл'
+            for x,y in hodyGamer:
+                makeMove(theBoard, sunduki, x,y)
         # показать игровое поле
         displayBoard(theBoard)
         # уменьшаем кол-во сундуков на 1
+        if len(sunduki) == 0:
+            print('Вы нашли все сундуки с сокровищами на затонувших кораблях! Поздравляем!')
+            break
+        #уменьшаем количество сундуков на 1
+        kolGidro -= 1
 
+    if kolGidro == 0:
+        print('''   Все гидролокаторы опущены на дно!
+        Придется разврочивать корабль и отправлятся домой, в порт!
+        Игра закончена!''')
         print()
-        input()
+        print('       Вы не нашли судуки в следующих местах:')
+        for x,y in sunduki:
+            print('%s, %s'%(x,y))
 
-
-
-#while True:
-#    a = int(input('Введите первую координату:     '))
-#    b = int(input('Введите вторую координату:     '))
-#    print(isOnBoard(a,b))
-#    if vopros():
-#        break
+    if not vopros('Хотите сыграть еще раз?'):
+        sys.exit()
+        #print()
+        #input() 
